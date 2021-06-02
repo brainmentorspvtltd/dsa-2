@@ -1,0 +1,105 @@
+2/06/21
+=======
+can we overload our main function?
+Yes,because of the function signature
+
+Data types=>2 types 
+1.Primitive data types
+=>numeric
+    =>character
+        =>char(2 bytes)
+        ->c++ 1 byte of memory(keyboard)(Ascii characters)
+        1-8 bits 
+        2^8=>256
+        256 posible combination 
+        java 2 byte =>unicode 2^16
+        =>we are getting large set of value(hindi,any language) 
+    =>integral Datatypes def(0)
+        =>integer
+        literal without any symbol =>int type
+            =>byte  (1byte) def=0
+            =>short(2 byte) def=0
+            =>int (4 byte) def=0
+            =>long(8 byte) def=0
+
+            range
+            ======
+            byte=> 8 bits
+            1 bit =>reserved for sign +,-
+            7 bits they are actually stored for storing number=> -2^7 <-> +2^7-1 ==  -128 to 127
+
+            short,long int => 1 bit sign
+                                 int => -2^31 to 2^31-1
+
+
+            salary =>negative ?? 
+            unsigned =>byte =>-128 to 127=>255(not there in java)
+            if long is not capable of storing a number  -->then what?? 
+
+        =>floating point
+        //by degfault if u are not using f symbol with a floating point literal then it will be 
+        considered as a double literal.
+            =>float(4 bytes) def(0.0)
+            =>double(8 byte) def(0.0)
+=>boolean 
+    =>boolean (1 byte, 2 byte)=>0=>false 1=>true(0 ,1 are integers so what data type we are 
+                                    using to store this 0 and 1 will decide the size )
+                            =>2 perception =>how boolean is stored inside 
+
+                            =>def(false)
+2.reference data type(non primitive)
+
+references are of same size. 
+=>once primitive is not supporting you need
+    =>very large values
+    =>library class (lang,util)=>and suppose that function supports only object and not primitives
+    then you have to convert your primitives to object
+
+default values =>they dont work with the local variable ==>local variables have to be initialized
+
+3: jre =>memory segment=>method area, heap area , stack area
+    =>heap area=>object space occupy
+    =>there is class , you will create a object of int
+    =>
+=>stack=>methods/function calls =>to execute these function
+    =>per thread stack area create
+=>method area =>class definition and static variables 
+
+=>wrapper classes
+    =>int =>Integer
+    =>char =>Character
+    =>float=>Float
+    =>double=>Double
+    =>byte=>Byte
+    =>long=>Long
+    =>boolean =>Boolean
+    =>short =>Short
+
+    =>Autoboxing =>you dont have create an object explicitly , whenever you assign a primitive 
+        value to your wrapper class it automatically get converted to a wrapper object.
+
+
+In and out object
+
+in =>InputStream=> it establishes a stream(pipe,channel) between console(standard input )
+                    the process, for reading input purpose
+out =>PrintStream =>it establishes a stream (channel) between console and the process 
+only for writing purpose
+
+System=>in out object=>standard in/out =>console
+File =>straem establish between process and file
+
+BigInteger and BigDecimal
+=>
+
+
+
+
+
+
+
+
+
+
+
+

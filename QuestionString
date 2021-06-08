@@ -1,0 +1,45 @@
+Q1: string s="abcdedaadbbb"
+
+
+=>a =>3
+=>l =>0
+
+
+Q2: string s2="aaaabbbbddddddcccccccaaa";
+a 
+b
+d
+c
+
+1:hash table
+2:multiple loops
+3:array =>sorting =>counter 
+
+Q3: duplicates removal
+String  s3="aabaacdddessbbb";
+
+1:sorting
+2:hash table
+
+
+Q4: string s="ThisISnewWorldANDyouAreHERE"
+
+//small=>capital(case change) This ISnew World ANDyou Are HERE
+//capital 0 =>small after 0th index then =>separare=> IS new AND you Are Here 
+output=>["This", "IS","new","World","AND","you","Are","HERE"];
+
+=>regex=> 
+
+=>for()
+
+
+
+
+
+
+
+
+
+
+
+

@@ -11,38 +11,27 @@ class Solution {
         else if(boardMarker[i][j]==true){
             return false;
         }
+       
         if(board[i][j]==word.charAt(index)){
                    
                     boardMarker[i][j]=true;
                     
-                    if(searchKey(board, boardMarker,word,1,i-1,j)==false)
+                    if(searchKey(board, boardMarker,word,index+1,i-1,j)==true)
                     {
-                        
-                    }
-                    else{
                         return true;
                     }
+                   
+                     if(searchKey(board, boardMarker,word,index+1,i+1,j)==true){
+                        return true; 
+                    }
+                    if(searchKey(board, boardMarker,word,index+1,i,j-1)==true){
+                      return true;   
+                    }
+                    if(searchKey(board, boardMarker,word,index+1,i,j+1)==true){
                     
-                    if(searchKey(board, boardMarker,word,1,i+1,j)==false){
-                        
-                    }
-                    else{
                         return true;
                     }
-                    if(searchKey(board, boardMarker,word,1,i,j-1)==false){
-                        
-                    }
-                    else{
-                        return true;
-                    }
-                    if(searchKey(board, boardMarker,word,1,i,j+1)==false){
-                       boardMarker[i][j]=false;
-                        return false;
-                    }
-                    else{
-                        return true;
-                    }
-                    
+                     boardMarker[i][j]=false;
                 }
             
         
@@ -54,39 +43,12 @@ class Solution {
         boolean boardMarker[][]=new boolean[board.length][board[0].length];
         for(int i=0;i<board.length;i++){
             for(int j=0;j<board[i].length;j++){
-                if(word.charAt(0)==board[i][j]){
-                   
-                    boardMarker[i][j]=true;
+               
                     
-                    if(searchKey(board, boardMarker,word,1,i-1,j)==false)
-                    {
-                        
-                    }
-                    else{
+                    if(searchKey(board, boardMarker,word,0,i,j)){
                         return true;
                     }
-                    
-                    if(searchKey(board, boardMarker,word,1,i+1,j)==false){
-                        
-                    }
-                    else{
-                        return true;
-                    }
-                    if(searchKey(board, boardMarker,word,1,i,j-1)==false){
-                        
-                    }
-                    else{
-                        return true;
-                    }
-                    if(searchKey(board, boardMarker,word,1,i,j+1)==false){
-                      boardMarker[i][j]=false;
-                      
-                    }
-                    else{
-                        return true;
-                    }
-                    
-                }
+ 
             }
         }
                 

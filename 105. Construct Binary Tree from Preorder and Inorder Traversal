@@ -1,0 +1,74 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int index=-1;
+    
+//     public int searchInorder(int[] inorder,int lo,int hi, int key){
+//         if(lo>hi){
+//             return -1;
+            
+//         }
+//         int mid=(hi+lo)/2;
+//         if(inorder[mid]==key){
+//             return mid;
+//         }
+//         if(inorder[mid]<key){
+//            return searchInorder(inorder,mid+1,hi,key);
+//         }
+//         else if(inorder[mid]>key){
+//             return searchInorder(inorder,lo,mid-1,key);
+//         }
+//         return -1;
+        
+//     }
+    
+    public int searchInorder(int[] inorder,int lo,int hi, int key){
+    for(int i=lo;i<=hi;i++){
+        if(inorder[i]==key){
+            return i;
+        }
+        
+    }
+        return -1;
+    }
+    
+    public TreeNode buildHelper(int[] preorder, int[] inorder, int lo,int hi){
+        if(index<inorder.length-1){
+           
+        if(lo>hi){
+            return null;
+        }
+        index=index+1;
+           
+        int ele=preorder[index];
+        TreeNode temp=new TreeNode(ele);
+        int divPoint=searchInorder(inorder,lo,hi,ele);
+        
+        temp.left=buildHelper(preorder,inorder, lo,divPoint-1);
+        temp.right=buildHelper(preorder,inorder, divPoint+1,hi);
+        
+        return temp;
+        }
+        return null;
+    }
+    
+    
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+           TreeNode ref= buildHelper(preorder,inorder, 0,preorder.length-1);
+        return ref;
+        
+    }
+}

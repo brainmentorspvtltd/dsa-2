@@ -1,0 +1,169 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Pair{
+    int verindex;
+    int hindex;
+    TreeNode ref;
+    
+    Pair(int verindex,int hindex, TreeNode ref){
+        this.verindex=verindex;
+        this.hindex=hindex;
+        this.ref=ref;
+    }
+}
+class Solution {
+    int min=0;
+    int max=0;
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        List<List<Integer>> ansList=new ArrayList<List<Integer>>();
+        
+     HashMap<Integer, ArrayList<Pair>> hm=new   HashMap<Integer, ArrayList<Pair>>(); 
+        Queue<Pair> q=new LinkedList<Pair>();
+        
+        Pair p=new Pair(0,0,root);
+        q.add(p);
+        // System.out.println(p.ref);
+        while(q.isEmpty()==false){
+            Pair temp=q.peek();
+            if(min>temp.verindex){
+                min=temp.verindex;
+            }
+            if(max<temp.verindex){
+                max=temp.verindex;
+            }
+            
+            q.remove();
+            
+            if(hm.containsKey(temp.verindex)){
+                ArrayList<Pair> a=hm.get(temp.verindex);
+                a.add(temp);
+            }
+            else{
+                ArrayList<Pair> a=new ArrayList<Pair>();
+                // if(temp!=null){
+                //     System.out.println(temp.verindex+"  "+temp.ref);
+                // }
+                a.add(temp);
+                hm.put(temp.verindex,a);
+            }
+            
+            int lefti=temp.verindex-1;
+            int  righti=temp.verindex+1;
+            if(temp.ref.left!=null){
+              
+                q.add(new Pair(lefti,temp.hindex+1, temp.ref.left));
+            }
+            if(temp.ref.right!=null){
+                q.add(new Pair(righti,temp.hindex+1, temp.ref.right));
+            }
+        }
+         for(int i=min;i<=max;i++){
+        // Collections.sort(hm.get(i));
+           // ansList.add(  hm.get(i) );
+        ArrayList<Integer> arr=new ArrayList<Integer>();
+        ArrayList<Pair> ptemp=hm.get(i);
+        Collections.sort(ptemp,new sortH());
+             for(int j=0;j<ptemp.size();j++){
+               //  System.out.print(ptemp.get(j).ref.val+"  ");
+                 arr.add(ptemp.get(j).ref.val);
+             }
+              //System.out.println();
+             ansList.add(arr);
+             
+        }
+        
+        return ansList;
+        
+    }
+}
+class sortH implements Comparator<Pair> {
+    // Used for sorting in ascending order of
+    // roll number
+    public int compare(Pair a,Pair b)
+    {
+        if(a.hindex==b.hindex){
+            return a.ref.val-b.ref.val;
+        }
+        return a.hindex - b.hindex;
+    }
+}
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+// class Solution {
+//     int min=0;
+//     int max=0;
+//     public void divideVer(TreeNode root,int index,HashMap<Integer, ArrayList<Integer>> hm){
+        
+//         if(root==null){
+//             return;
+//         }
+//         if(hm.containsKey(index)){
+//             hm.get(index).add(root.val);
+//         }
+//         else{
+//             ArrayList<Integer> temp=new ArrayList<Integer>();
+//             temp.add(root.val);
+//             hm.put(index,temp);
+//         }
+//         if(index<min){
+//             min=index;
+//         }
+//         if(index>max){
+//             max=index;
+//         }
+//         divideVer(root.right,index+1,hm);
+//         divideVer(root.left,index-1,hm);
+        
+        
+//     }
+//     public List<List<Integer>> verticalTraversal(TreeNode root) {
+//      List<List<Integer>> ansList=new ArrayList<List<Integer>>();
+//      HashMap<Integer, ArrayList<Integer>> hm=new   HashMap<Integer, ArrayList<Integer>>();  
+//      divideVer(root,0,hm);
+//         for(int i=min;i<=max;i++){
+//         // Collections.sort(hm.get(i));
+//             ansList.add(  hm.get(i) );
+//         }
+        
+//         return ansList;
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+

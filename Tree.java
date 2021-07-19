@@ -1,73 +1,74 @@
-import java.util.LinkedList;
 import java.util.Stack;
+import java.util.LinkedList;
 import java.util.Queue;
-class treeNode{
+// class Stack{
+
+// }
+class Node{
     int data;
 
-    treeNode left;
-    treeNode right;
+    Node left;
+    Node right;
 
-    treeNode(int data){
-        left=right=null;
+    Node(int data){
         this.data=data;
+        left=null;
+
+        right=null;
     }
 }
+
+
 public class Tree {
-    static void Inorder(treeNode root){
+    static void Inorder(Node root){
 
         if(root==null){
             return ;
         }
         else{
             Inorder(root.left);
-            System.out.println(root.data);
+            System.out.print(root.data+"  ");
             Inorder(root.right);
         }
-
     }
-    static void preorder(treeNode root){
+    static void preorder(Node root){
 
         if(root==null){
             return ;
         }
         else{
-            System.out.println(root.data);
+            System.out.print(root.data+"  ");
             preorder(root.left);
-          
             preorder(root.right);
         }
-
     }
-    static void InorderStack(treeNode root){
 
-        Stack <treeNode>st=new Stack<treeNode>();
+    static void InorderStack(Node root){
 
+        Stack<Node> st=new Stack<Node>();
 
-        while(root!=null || st.empty()!=true){
-
-            //left
+        while(root!=null || st.empty()==false){
+          //left 
             while(root!=null){
                 st.push(root);
                 root=root.left;
             }
 
             root=st.pop();
-            System.out.print(root.data+"  ");
-
+            System.out.println(root.data);
             root=root.right;
-
         }
-
     }
-    static void levelOrder(treeNode root){
 
-        Queue<treeNode> q=new LinkedList<treeNode>();
 
+    static void levelOrder(Node root){
+        Queue<Node> q=new LinkedList<Node>();
         q.add(root);
+
         while(q.isEmpty()==false){
-            treeNode temp=q.peek();
+            Node temp=q.peek();
             q.remove();
-            System.out.println(temp.data);
+            System.out.print(temp.data+" ");
 
             if(temp.left!=null){
                 q.add(temp.left);
@@ -76,126 +77,147 @@ public class Tree {
                 q.add(temp.right);
             }
         }
-    }
-
-    static int  maxHeight(treeNode root){
-
-
-        if(root==null){
-            return 0;
-        }
-
-        int lefth=maxHeight(root.left);
-        int righth=maxHeight(root.right);
-
-        if(lefth>righth){
-            return lefth+1;
-        }
-        else{
-            return righth+1;
-        }
 
     }
-    
-static int numberNodes(treeNode root){
+static Node insertBinary(Node root, int data){
 
-    if(root==null){
-        return 0;
-    }
-    else{
-        int left=numberNodes(root.left);
-        int right=numberNodes(root.right);
-        return left+right+1;
-    }
-}
+    Node temp=new Node(data);
 
-static int maxEle(treeNode root){
-    if(root ==null ){
-        return Integer.MIN_VALUE;
-    }
-    else{
-        int left=maxEle(root.left);
-        int right=maxEle(root.right);
-        if(root.data>left && root.data>right)
-        return root.data;
-        else if(left>right && left>root.data){
-            return left;
-        }
-        else{
-            return right;
-        }
-    }
-
-}
-
-static void levelk(treeNode root , int k){
-    if(root==null){
-        return ;
-    }
-    if(k==1){
-        System.out.print(root.data+"  ");
-            return;
-    }
-        levelk(root.left, k-1);
-        levelk(root.right, k-1);    
-
-}
-static treeNode insertBinary(treeNode root,int data){
-    treeNode temp=new treeNode(data);
     if(root==null){
         return temp;
     }
+
     else{
-        Queue<treeNode> q=new LinkedList<treeNode>();
-        treeNode r=root;
-        q.add(r);
+        Queue<Node> q=new LinkedList<Node>();
+        q.add(root);
         while(q.isEmpty()==false){
-            treeNode curr=q.peek();
+            Node current=q.peek();
             q.remove();
-            if(curr.left!=null){
-                q.add(curr.left);
-            }
-            else{
-                curr.left=temp;
+            
+            if(current.left==null){
+                current.left=temp;
                 return root;
             }
-            if(curr.right!=null){
-                q.add(curr.right);
+            else{
+                q.add(current.left);
+            }
+            if(current.right==null){
+                current.right=temp;
+                return root;
             }
             else{
-                curr.right=temp;
-                return root;
+                q.add(current.right);
+            }
+        }
+        return null;
+    }
+
+}
+static int maxEle(Node root){
+
+    if(root==null){
+        return Integer.MIN_VALUE;
+
+    }
+
+    int left=maxEle(root.left);
+    int right=maxEle(root.right);
+    if(root.data>left&& root.data>right){
+        return root.data;
+    }
+    else if(left>right && left>root.data){
+        return left;
+    }
+    else{
+        return right;
+    }
+
+}
+static int leafCount(Node root){
+
+    Queue<Node> q=new LinkedList<Node>();
+
+    q.add(root);
+    int count=0;
+
+    while(q.isEmpty()==false){
+        Node temp=q.peek();
+        q.remove();
+        if(temp.left==null && temp.right==null){
+            count++;
+        }
+        else{
+            if(temp.left!=null){
+                q.add(temp.left);
+            }
+            if(temp.right!=null){
+                q.add(temp.right);
             }
         }
     }
-    return null;
+return count;
 }
-    public static void main(String[] args) {
-        
-        treeNode root=null;
-
-        treeNode temp=new treeNode(10);
-        root=temp;
-        root.left=new treeNode(20);
-
-        root.right=new treeNode(30);
-
-        root.left.left=new treeNode(40);
-        root.left.right=new treeNode(50);
-
-        root.right.left=new treeNode(60);
-        root.right.right=new treeNode(70);
 
 
-       // preorder(root);
-        
-       // InorderStack(root);
-       //System.out.println(maxHeight(root));
-       //System.out.println(numberNodes(root));
-    //    System.out.println(maxEle(root));
-    // levelk(root, 2);
-    insertBinary(root,80);
-    insertBinary(root,90);
-    levelOrder(root);
+
+static int maxWidth(Node root){
+
+    Queue<Node> q=new LinkedList<Node>();
+    int max=0;
+    q.add(root);
+    while(q.isEmpty()==false){
+        int size=q.size();
+        if(max<size){
+            max=size;
+        }
+
+        for(int i=0;i<size;i++){
+            Node temp=q.poll();
+            if(temp.left!=null){
+                q.add(temp.left);
+            }
+            if(temp.right!=null){
+                q.add(temp.right);
+            }
+        }
+
     }
+ 
+    return max;
+}
+static void printK(Node root,int k,int currlevel){
+if(root==null){
+    return;
+}
+if(currlevel==k){
+    System.out.print(root.data+"  ");
+    return;
+}
+printK(root.left,k,currlevel+1);
+printK(root.right,k,currlevel+1);
+}
+
+public static void main(String[] args) {
+    // Node root= null;
+    // root=new Node(10);
+    // root.left=new Node(20);
+    // root.right=new Node(30);
+    // root.left.left=new Node(40);
+    // root.left.right=new Node(50);
+    // root.right.left=new Node(60);
+    // root.right.right=new Node(70);
+
+//    Inorder(root);
+// InorderStack(root);
+//preorder(root);
+
+// insertBinary(root,80);
+// insertBinary(root,90);
+// insertBinary(root,100);
+// printK(root, 2, 0);
+// levelOrder(root);
+//System.out.println(maxEle(root));
+//System.out.println(leafCount(root));
+//System.out.println(maxWidth(root));
+}    
 }
